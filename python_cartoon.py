@@ -177,13 +177,13 @@ def min_coins(s, l):
 # O(n) algorithm to find if two strings are anagrams or not.
 def anagrams(s1, s2):
   if (llen(s1) != llen(s2)): return False;
-  d=collections.defaultdict(int);
+  d = collections.defaultdict(int);
   for x in s2: d[x] += 1;
   for x in s2:
     if (not d[x]): return False;
   return True;
 
-# O(n) algorithm to find if two strings are anagrams or not.
+# Find all pairs in an array where their sum is exatly k.
 def kpair_ht(l, k):
   ps = [];
   d = collections.defaultdict(bool);
