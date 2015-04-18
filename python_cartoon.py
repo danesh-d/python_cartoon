@@ -137,6 +137,10 @@ def inter(l1, l2):
     return [head(l1)] + inter(tail(l1), l2) if (head(l1) in l2) else inter(tail(l1), l2);
   else: return [];
 
+# Returns difference between two lists.
+def diff(l1, l2):
+  return [i for i in l1 + l2 if i not in l1 or i not in l2];
+
 # Returns all permutations of a string.
 def perm(s):
   ps = [];
@@ -337,7 +341,7 @@ test(fact_tr(0, 1), 1);
 test(fact_tr(1, 1), 1);
 test(fact_tr(5, 1), 120);
 test(inter([1, 2, 3], [33, 3, 5, 2, 1, 55, 32, 16]), [1, 2, 3]);
-#test(diff([1, 2, 3], [33, 3, 5, 2, 1, 55, 32, 16]), [33, 5, 55, 32, 16]);
+test(diff([1, 2, 3], [33, 3, 5, 2, 1, 55, 32, 16]), [33, 5, 55, 32, 16]);
 test(max_sub([-2, 1, -3, 4, -1, 2, 1, -5, 4]), 6);
 test(min_coins(11, [1, 3, 5]), 3);
 test(anagrams("danesh", "danehs"), True);
