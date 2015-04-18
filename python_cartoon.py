@@ -1,5 +1,10 @@
 #! /usr/bin/env python
 
+# Written by: Danesh Daroui
+
+# Note: Python supports no tail call eliminaton, so here using tail recursion
+# is just for presentation purposes and nothing serious! Or it is just for fun!
+
 import collections;
 
 # Unit test function.
