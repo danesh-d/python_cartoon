@@ -13,6 +13,100 @@ def test(got, expected):
   else: prefix = '  X '
   print '%s got: %s expected: %s' % (prefix, repr(got), repr(expected))
 
+
+
+
+#################### Dynamic Programming ####################
+
+# Kadane's algorithm to find the subarray in an array which has the maximum sum (dynamic programming).
+def max_sub(a):
+  max_sofar = max_end = 0;
+  for x in a:
+    max_end = max(0, max_end+x);
+    max_sofar = max(max_sofar, max_end);
+  return max_sofar;
+
+# Having a coin of value s return the minimum number of coins in list l to change s (dynamic programming).
+def min_coins(s, l):
+  m = [s] * (s + 1);
+  m[0] = 0;
+  for i in range(1, s + 1):
+    for j in l:
+      if (j <= i and m[i - j] + 1 < m[i]):
+        m[i] = m[i - j] + 1;
+  return m[s];
+
+
+
+
+#################### Numbers ####################
+
+# Return factorial of a number.
+def fact(n):
+  return n * fact(n - 1) if (n > 0) else 1;
+
+# Return factorial of a number (tail recursion).
+def fact_tr(n, r):
+  return fact_tr(n - 1, r * n) if (n > 0) else r;
+
+# Return fibonacci series result of a number.
+def fib(n):
+  return n + fib(n - 1) if (n > 1) else 1;
+
+# Return fibonacci series result of a number (tail recursion).
+def fib_tr(n, r):
+  return fib_tr(n - 1, r + n) if (n > 1) else r;
+
+# Test if a list of numbers is in ascending order.
+def ascend(l):
+  if (not l): return True;
+  for x in xrange(llen(l) - 1):
+    if (l[x] >= l[x + 1]): return False;
+  return True;
+
+# Return all digits in a number as elements in a list.
+def all_digits(n):
+  if n < 10: return [n];
+  else: return all_digits(n / 10) + [n % 10];
+
+# Find all pairs in an array where their sum is exatly k.
+def kpair_ht(l, k):
+  ps = [];
+  d = collections.defaultdict(bool);
+  for x in l:
+    if d[x]: ps += [(x, k - x)];
+    d[k - x] = True;
+  return ps;
+
+# Having a list of numbers, we shuffle it and remove an item, the goal is
+# to find the missed number from the original list.
+def missed_num(l1, l2):
+  mn = 0;
+  for n in l1 + l2: mn ^= n;
+  return mn;
+
+
+
+
+#################### List Processing ####################
+
+# Returns intersection between two lists.
+def inter(l1, l2):
+  if (l1 and l2):
+    return [head(l1)] + inter(tail(l1), l2) if (head(l1) in l2) else inter(tail(l1), l2);
+  else: return [];
+
+# Returns difference between two lists.
+def diff(l1, l2):
+  return [i for i in l1 + l2 if i not in l1 or i not in l2];
+
+# Remove all duplicated elements in a list and return the unique list.
+def unique(l):
+  if (l):
+    if (head(l) in tail(l)): return unique(tail(l));
+    else: return [head(l)] + unique(tail(l));
+  else: return l;
+
 # Return length of a list.
 def llen(l):
   return llen(l[1:]) + 1 if l else 0;
@@ -79,6 +173,11 @@ def bsearch(l, e):
     elif (mid > e): return bsearch(l[0 : p], e);
     else: return bsearch(l[p : llen(l)], e);
 
+
+
+
+#################### String Processing ####################
+
 # Compare two strings and return true, false or none according to the string lengths.
 def strcmp(s1, s2):
   if (not s1 and s2): return True;
@@ -108,39 +207,6 @@ def pal(s):
     else: return False;
   else: return True;
 
-# Remove all duplicated elements in a list and return the unique list.
-def unique(l):
-  if (l):
-    if (head(l) in tail(l)): return unique(tail(l));
-    else: return [head(l)] + unique(tail(l));
-  else: return l;
-
-# Return factorial of a number.
-def fact(n):
-  return n * fact(n - 1) if (n > 0) else 1;
-
-# Return factorial of a number (tail recursion).
-def fact_tr(n, r):
-  return fact_tr(n - 1, r * n) if (n > 0) else r;
-
-# Return fibonacci series result of a number.
-def fib(n):
-  return n + fib(n - 1) if (n > 1) else 1;
-
-# Return fibonacci series result of a number (tail recursion).
-def fib_tr(n, r):
-  return fib_tr(n - 1, r + n) if (n > 1) else r;
-
-# Returns intersection between two lists.
-def inter(l1, l2):
-  if (l1 and l2):
-    return [head(l1)] + inter(tail(l1), l2) if (head(l1) in l2) else inter(tail(l1), l2);
-  else: return [];
-
-# Returns difference between two lists.
-def diff(l1, l2):
-  return [i for i in l1 + l2 if i not in l1 or i not in l2];
-
 # Returns all permutations of a string.
 def perm(s):
   ps = [];
@@ -160,24 +226,6 @@ def perm_gen(s):
       for p in perm(s[:i] + s[i + 1:]):
          yield [s[i] + p];
 
-# Kadane's algorithm to find the subarray in an array which has the maximum sum (dynamic programming).
-def max_sub(a):
-  max_sofar = max_end = 0;
-  for x in a:
-    max_end = max(0, max_end+x);
-    max_sofar = max(max_sofar, max_end);
-  return max_sofar;
-
-# Having a coin of value s return the minimum number of coins in list l to change s (dynamic programming).
-def min_coins(s, l):
-  m = [s] * (s + 1);
-  m[0] = 0;
-  for i in range(1, s + 1):
-    for j in l:
-      if (j <= i and m[i - j] + 1 < m[i]):
-        m[i] = m[i - j] + 1;
-  return m[s];
-
 # O(n) algorithm to find if two strings are anagrams or not.
 def anagrams(s1, s2):
   if (llen(s1) != llen(s2)): return False;
@@ -185,28 +233,6 @@ def anagrams(s1, s2):
   for x in s2: d[x] += 1;
   for x in s2:
     if (not d[x]): return False;
-  return True;
-
-# Find all pairs in an array where their sum is exatly k.
-def kpair_ht(l, k):
-  ps = [];
-  d = collections.defaultdict(bool);
-  for x in l:
-    if d[x]: ps += [(x, k - x)];
-    d[k - x] = True;
-  return ps;
-
-# Having a list of numbers, we shuffle it and remove an item, the goal is
-# to find the missed number from the original list.
-def missed_num(l1, l2):
-  mn = 0;
-  for n in l1 + l2: mn ^= n;
-  return mn;
-
-def ascend(l):
-  if (not l): return True;
-  for x in xrange(llen(l) - 1):
-    if (l[x] >= l[x + 1]): return False;
   return True;
 
 # Two strings are shuffled and merged to create a new string, this function
@@ -249,25 +275,6 @@ def remove_dups(s):
       res += x;
   return res;
 
-# Return all digits in a number as elements in an array.
-def all_digits(n):
-  if n < 10: return [n];
-  else: return all_digits(n / 10) + [n % 10];
-
-# Number of all occurences of a substring in a string.
-def all_occs(s, ss):
-  if (not s or not ss): return 0;
-  if (s == ss): return 1;
-  if (s[0] == ss[0]):
-    n = 0;
-    for i in range(llen(s) - 1):
-      if (s[i] != ss[i]):
-        break;
-      n += 1;
-    if (n == llen(s) - 1): return  1 + all_occs(s, ss[ n + 1:]);
-    else: return all_occs(s, ss[n + 1:]);
-  return all_occs(s, ss[1:]);
-
 # Find the longest common suffix between two strings.
 def lcs(s1, s2):
   return lcs(foot(s1), foot(s2)) + last(s1) if (last(s1) == last(s2) and llen(s1 + s2) > 0) else "";
@@ -295,7 +302,24 @@ def l_com_s(s1, s2):
       if (llen(cs) > llen(s)): s = cs;
   return s;
 
-# Main entry point.
+# Number of all occurences of a substring in a string.
+def all_occs(s, ss):
+  if (not s or not ss): return 0;
+  if (s == ss): return 1;
+  if (s[0] == ss[0]):
+    n = 0;
+    for i in range(llen(s) - 1):
+      if (s[i] != ss[i]):
+        break;
+      n += 1;
+    if (n == llen(s) - 1): return  1 + all_occs(s, ss[ n + 1:]);
+    else: return all_occs(s, ss[n + 1:]);
+  return all_occs(s, ss[1:]);
+
+
+
+
+#################### Main Entry and Testing ####################
 if __name__ == "__main__":
   l = [1, 2, 3, 7, 3, 3, 9, 45, 23, 32, 11, 45, 22];
   print "under test list: ", l;
