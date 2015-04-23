@@ -51,11 +51,15 @@ def fact_tr(n, r):
 
 # Return fibonacci series result of a number.
 def fib(n):
-  return n + fib(n - 1) if (n > 1) else 1;
+  if (n <= 1):
+    return n;
+  return n + fib(n - 1);
 
 # Return fibonacci series result of a number (tail recursion).
-def fib_tr(n, r):
-  return fib_tr(n - 1, r + n) if (n > 1) else r;
+def fib_tr(n):
+  def fib_help(a, b, n):
+    return fib_help(b, a + b, n - 1) if (n > 0) else a;
+  return fib_help(0, 1, n)
 
 # Test if a list of numbers is in ascending order.
 def ascend(l):
@@ -354,12 +358,12 @@ if __name__ == "__main__":
   test(mmin(l), 1);
   test(mmax(l), 45);
   test(perm("abc"), ["abc", "acb", "bac", "bca", "cab", "cba"]);
-  test(fib(0), 1);
+  test(fib(0), 0);
   test(fib(1), 1);
   test(fib(10), 55);
-  test(fib_tr(0, 1), 1);
-  test(fib_tr(1, 1), 1);
-  test(fib_tr(10, 1), 55);
+  test(fib_tr(0), 0);
+  test(fib_tr(1), 1);
+  test(fib_tr(10), 55);
   test(fact(0), 1);
   test(fact(1), 1);
   test(fact(5), 120);
