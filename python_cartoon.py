@@ -127,7 +127,7 @@ def head(l):
 def last(l):
   return l[llen(l) - 1] if l else None;
 
-# Returns headless of the list (the list without its last element).
+# Returns foot of the list (the list without its last element).
 def foot(l):
   return l[:llen(l) - 1];
 
