@@ -53,7 +53,7 @@ def fact_tr(n, r):
 def fib(n):
   if (n <= 1):
     return n;
-  return n + fib(n - 1);
+  return fib(n - 1) + fib(n - 2);
 
 # Return fibonacci series result of a number (tail recursion).
 def fib_tr(n):
