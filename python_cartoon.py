@@ -18,23 +18,46 @@ def test(got, expected):
 
 #################### Dynamic Programming ####################
 
-# Kadane's algorithm to find the subarray in an array which has the maximum sum (dynamic programming).
+# Kadane's algorithm to find the subarray in an array which has the maximum sum
+# (dynamic programming).
 def max_sub(a):
   max_sofar = max_end = 0;
   for x in a:
-    max_end = max(0, max_end+x);
+    max_end = max(0, max_end + x);
     max_sofar = max(max_sofar, max_end);
   return max_sofar;
 
-# Having a coin of value s return the minimum number of coins in list l to change s (dynamic programming).
+# Having a coin of value s return the minimum number of coins in list l to
+# change s (dynamic programming).
 def min_coins(s, l):
+  # Memoization space.
   m = [s] * (s + 1);
+
+  # Cover the case when there is an exact coin for a change.
   m[0] = 0;
+
   for i in range(1, s + 1):
     for j in l:
       if (j <= i and m[i - j] + 1 < m[i]):
         m[i] = m[i - j] + 1;
   return m[s];
+
+# Fibonacci series using dynamic programming approach with optimzed space.
+def fib_dyn(n):
+  if (n <= 1):
+    return n;
+
+  # Memoization space.
+  a = 1;
+  b = 1;
+  c = 0;
+
+  for i in range(1, n - 1):
+    c = a + b;
+    a = b;
+    b = c;
+
+  return c;
 
 
 
@@ -97,7 +120,8 @@ def missed_num(l1, l2):
 # Returns intersection between two lists.
 def inter(l1, l2):
   if (l1 and l2):
-    return [head(l1)] + inter(tail(l1), l2) if (head(l1) in l2) else inter(tail(l1), l2);
+    return [head(l1)] + inter(tail(l1), l2) if (head(l1) in l2) else\
+                                                            inter(tail(l1), l2);
   else: return [];
 
 # Returns difference between two lists.
@@ -164,7 +188,8 @@ def greater(l, e):
 
 # Return sorted list from an unsorted list using quick sort algorithm.
 def qsort(l):
-  return qsort(lesser(tail(l), head(l))) + [head(l)] + qsort(greater(tail(l), head(l))) if l else l;
+  return qsort(lesser(tail(l), head(l))) + [head(l)] +\
+         qsort(greater(tail(l), head(l))) if l else l;
 
 # Binary search over a sorted list.
 def bsearch(l, e):
@@ -182,7 +207,8 @@ def bsearch(l, e):
 
 #################### String Processing ####################
 
-# Compare two strings and return true, false or none according to the string lengths.
+# Compare two strings and return true, false or none according to the string
+# lengths.
 def strcmp(s1, s2):
   if (not s1 and s2): return True;
   elif (s1 and not s2): return False;
@@ -281,19 +307,25 @@ def remove_dups(s):
 
 # Find the longest common suffix between two strings.
 def lcs(s1, s2):
-  return lcs(foot(s1), foot(s2)) + last(s1) if (last(s1) == last(s2) and llen(s1 + s2) > 0) else "";
+  return lcs(foot(s1), foot(s2)) + last(s1) if (last(s1) == last(s2) and
+                                                llen(s1 + s2) > 0) else "";
 
 # Find the longest common suffix between two strings (tail recursion).
 def lcs_tr(s1, s2, common):
-  return lcs_tr(foot(s1), foot(s2), last(s1) + common) if (last(s1) == last(s2) and llen(s1 + s2) > 0) else common;
+  return lcs_tr(foot(s1), foot(s2), last(s1) + common) if (last(s1) == last(s2)
+                                                         and llen(s1 + s2) > 0)\
+                                                       else common;
 
 # Find the longest common prefix between two strings.
 def lcp(s1, s2):
-  return head(s1) + lcp(tail(s1), tail(s2)) if (head(s1) == head(s2) and llen(s1 + s2) > 0) else "";
+  return head(s1) + lcp(tail(s1), tail(s2)) if (head(s1) == head(s2) and
+                                                llen(s1 + s2) > 0) else "";
 
 # Find the longest common prefix between two strings (tail recursion).
 def lcp_tr(s1, s2, common):
-  return lcp_tr(tail(s1), tail(s2), common + head(s1)) if (head(s1) == head(s2) and llen(s1 + s2) > 0) else common;
+  return lcp_tr(tail(s1), tail(s2), common + head(s1)) if (head(s1) == head(s2)
+                                                         and llen(s1 + s2) > 0)\
+                                                       else common;
 
 # Find longest common substring between two strings.
 # The complexity is O(nm) where n and m are length of s1 and s2.
@@ -302,7 +334,8 @@ def l_com_s(s1, s2):
   common = "";
   for i in range(llen(s1)):
     for j in range(llen(s2)):
-      cs = lcs_tr(s1[:i], s2[:j], common);  # Common suffix at this stage using tail recursion.
+      # Common suffix at this stage using tail recursion.
+      cs = lcs_tr(s1[:i], s2[:j], common);
       if (llen(cs) > llen(s)): s = cs;
   return s;
 
@@ -364,6 +397,9 @@ if __name__ == "__main__":
   test(fib_tr(0), 0);
   test(fib_tr(1), 1);
   test(fib_tr(10), 55);
+  test(fib_dyn(0), 0);
+  test(fib_dyn(1), 1);
+  test(fib_dyn(10), 55);
   test(fact(0), 1);
   test(fact(1), 1);
   test(fact(5), 120);
@@ -376,7 +412,10 @@ if __name__ == "__main__":
   test(min_coins(11, [1, 3, 5]), 3);
   test(anagrams("danesh", "danehs"), True);
   test(anagrams("danesh", "sepideh"), False);
-  test(kpair_ht([11, 34, 23, 42, 22, 0, 4, 21, 18, 1, -1], 22), [(0, 22), (18, 4), (1, 21), (-1, 23)]);
+  test(kpair_ht([11, 34, 23, 42, 22, 0, 4, 21, 18, 1, -1], 22), [(0, 22),
+                                                                 (18, 4),
+                                                                 (1, 21),
+                                                                 (-1, 23)]);
   test(missed_num([1, 2, 3, 4, 5, 6], [6, 2, 1, 3, 5]), 4);
   test(shuff("abc", "def", "adbecf"), True);
   test(shuff2("abc", "def", "adbecf"), True);
@@ -409,7 +448,8 @@ if __name__ == "__main__":
   print pp.next();
   print pp.next();
 
-  # Testing generator implementation of all permutations in a list using an iterator.
+  # Testing generator implementation of all permutations in a list using an
+  # iterator.
   print "\nNow testing the generator of all permutations with an iterator";
   gg = perm_gen("abc");
   for g in gg:
