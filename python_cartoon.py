@@ -11,7 +11,7 @@ import collections;
 def test(got, expected):
   if (got == expected) : prefix = ' OK '
   else: prefix = '  X '
-  print '%s got: %s expected: %s' % (prefix, repr(got), repr(expected))
+  print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
 
 
 
@@ -87,14 +87,14 @@ def fib_tr(n):
 # Test if a list of numbers is in ascending order.
 def ascend(l):
   if (not l): return True;
-  for x in xrange(llen(l) - 1):
+  for x in range(llen(l) - 1):
     if (l[x] >= l[x + 1]): return False;
   return True;
 
 # Return all digits in a number as elements in a list.
 def all_digits(n):
   if n < 10: return [n];
-  else: return all_digits(n / 10) + [n % 10];
+  else: return all_digits(n // 10) + [n % 10];
 
 # Find all pairs in an array where their sum is exatly k.
 def kpair_ht(l, k):
@@ -180,11 +180,11 @@ def rev(l):
 
 # Returns all elements in a list which are lesser than an element.
 def lesser(l, e):
-  return filter(lambda x: x < e, l);
+  return list(filter(lambda x: x < e, l));
 
 # Returns all elements in a list which are greater than or equal to an element.
 def greater(l, e):
-  return filter(lambda x: x >= e, l);
+  return list(filter(lambda x: x >= e, l));
 
 # Return sorted list from an unsorted list using quick sort algorithm.
 def qsort(l):
@@ -196,7 +196,7 @@ def bsearch(l, e):
   if (not l): return False;
   elif (llen(l) == 1): return (l[0] == e);
   else:
-    p = llen(l) / 2;
+    p = llen(l) // 2;
     mid = l[p];
     if (mid==e): return True;
     elif (mid > e): return bsearch(l[0 : p], e);
@@ -359,8 +359,8 @@ def all_occs(s, ss):
 #################### Main Entry and Testing ####################
 if __name__ == "__main__":
   l = [1, 2, 3, 7, 3, 3, 9, 45, 23, 32, 11, 45, 22];
-  print "under test list: ", l;
-  print "unit test results:";
+  print("under test list: ", l);
+  print("unit test results:");
   test(llen(l), 13);
   test(head(l), 1);
   test(head([]), None);
@@ -439,19 +439,19 @@ if __name__ == "__main__":
   test(l_com_s('abcdefg', 'axxbcdyyy'), 'bcd');
 
   # Testing generator implementation of all permutations in a list using next().
-  print "\nNow testing the generator of all permutations with next() command";
+  print("\nNow testing the generator of all permutations with __next__() command");
   pp = perm_gen("abc");
-  print pp.next();
-  print pp.next();
-  print pp.next();
-  print pp.next();
-  print pp.next();
-  print pp.next();
+  print(pp.__next__());
+  print(pp.__next__());
+  print(pp.__next__());
+  print(pp.__next__());
+  print(pp.__next__());
+  print(pp.__next__());
 
   # Testing generator implementation of all permutations in a list using an
   # iterator.
-  print "\nNow testing the generator of all permutations with an iterator";
+  print("\nNow testing the generator of all permutations with an iterator");
   gg = perm_gen("abc");
   for g in gg:
-    print g;
+    print(g);
 
