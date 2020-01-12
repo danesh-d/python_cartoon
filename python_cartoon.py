@@ -9,9 +9,9 @@ import collections;
 
 # Unit test function.
 def test(got, expected):
-  if (got == expected) : prefix = ' OK '
-  else: prefix = '  X '
-  print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
+  if (got == expected) : prefix = " OK "
+  else: prefix = "  X "
+  print("%s got: %s expected: %s" % (prefix, repr(got), repr(expected)))
 
 
 
@@ -423,20 +423,20 @@ if __name__ == "__main__":
   test(ascend([33, 54, 73, 92, 542, 842]), True);
   test(remove_dups("tree traversal"), "tre avsl");
   test(all_digits(1234567890), [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]);
-  test(all_occs('test', 'onetesttwotestthreetest'), 3);
-  test(lcs('abcdefg', 'xxxyyyefg'), 'efg');
-  test(lcs('abcdefg', []), '');
-  test(lcs([], []), '');
-  test(lcs_tr('abcdefg', 'xxxyyyefg', ""), 'efg');
-  test(lcs_tr('abcdefg', [], ""), '');
+  test(all_occs("test", "onetesttwotestthreetest"), 3);
+  test(lcs("abcdefg", "xxxyyyefg"), "efg");
+  test(lcs("abcdefg", []), "");
+  test(lcs([], []), "");
+  test(lcs_tr("abcdefg", "xxxyyyefg", ""), "efg");
+  test(lcs_tr("abcdefg", [], ""), '');
   test(lcs_tr([], [], ""), '');
-  test(lcp('efgabcd', 'efgxxxyyy'), 'efg');
-  test(lcp('abcdefg', []), '');
-  test(lcp([], []), '');
-  test(lcp_tr('efgabcd', 'efgxxxyyy', ""), 'efg');
-  test(lcp_tr('abcdefg', [], ""), '');
-  test(lcp_tr([], [], ""), '');
-  test(l_com_s('abcdefg', 'axxbcdyyy'), 'bcd');
+  test(lcp("efgabcd", "efgxxxyyy"), "efg");
+  test(lcp("abcdefg", []), "");
+  test(lcp([], []), "");
+  test(lcp_tr("efgabcd", "efgxxxyyy", ""), "efg");
+  test(lcp_tr("abcdefg", [], ""), "");
+  test(lcp_tr([], [], ""), "");
+  test(l_com_s("abcdefg", "axxbcdyyy"), "bcd");
 
   # Testing generator implementation of all permutations in a list using next().
   print("\nNow testing the generator of all permutations with __next__() command");
